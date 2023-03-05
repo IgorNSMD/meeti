@@ -1,0 +1,18 @@
+{
+  "name": "meeti",
+  "version": "1.0.0",
+  "description": "Proyecto Meeti, con Node, PostgresSQL y EJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js"
+  },
+  "author": "Igor San Martin",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "nodemon": "^2.0.21"
+  }
+}
