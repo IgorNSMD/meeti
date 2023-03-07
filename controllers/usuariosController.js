@@ -12,7 +12,13 @@ exports.crearNuevaCuenta = async (req, res) => {
     try {
         await Usuarios.create(usuario);
     } catch (error) {
-        console.log(error)
+        
+        // extraer el message de los errores
+        const erroresSequelize = error.errors.map(err => err.message);
+        console.log(erroresSequelize);
+
+        req.flash('error', erroresSequelize);
+        res.redirect('/crear-cuenta');
     }
 
    
