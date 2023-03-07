@@ -2,9 +2,11 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
 const bodyParser = require('body-parser');
+
 const flash = require('connect-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const expressValidator = require('express-validator');
 const router = require('./routes');
 
 
@@ -24,6 +26,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true }));
 
+// validación de campos
+app.use(expressValidator());
 
 // Habilitar EJS como template engine
 app.use(expressLayouts);
