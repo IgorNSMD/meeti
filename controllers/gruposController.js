@@ -18,9 +18,10 @@ exports.formNuevoGrupo = async (req, res) => {
 
 // Almacena los grupos en la BD
 exports.crearGrupo = async (req, res) => {
+    
     // sanitizar
-    //req.sanitizeBody('nombre');
-    //req.sanitizeBody('url');
+    req.sanitizeBody('nombre');
+    req.sanitizeBody('url');
 
     const grupo = req.body;
 
