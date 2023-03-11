@@ -1,7 +1,7 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
-const bodyParser = require('body-parser');
+const bodyParse = require('body-parser');
 
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -26,8 +26,8 @@ require('dotenv').config({path:'variables.env'})
 const app = express();
 
 // Body parser, leer formularios
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : true }));
+app.use(bodyParse.json());
+app.use(bodyParse.urlencoded({extended:true}));
 
 // validación de campos
 app.use(expressValidator());

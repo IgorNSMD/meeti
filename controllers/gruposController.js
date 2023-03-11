@@ -1,13 +1,66 @@
 const Categorias = require('../models/Categorias');
 const Grupos = require('../models/Grupos');
 
+const multer = require('multer');
+const shortid = require('shortid');
+const fs = require('fs');
+
 //const uuid = require('uuid');
 const { v4: uuidv4 } = require('uuid');
 uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
+
+
+const configuracionMulter = {
+    limits : { fileSize : 100000 },
+    storage: fileStorage = multer.diskStorage({
+        destination: (req, file, next) => {
+            next(null, __dirname+'/../public/uploads/grupos/');
+        },
+        filename : (req, file, next) => {
+            const extension = file.mimetype.split('/')[1];
+            next(null, `${shortid.generate()}.${extension}`);
+        }
+    }), 
+    fileFilter(req, file, next) {
+        if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            //el formato es valido
+            next(null, true);
+        } else {
+            // el formato no es valido
+            next(new Error('Formato no válido'), false);
+        }
+    }
+}
+
+const upload = multer(configuracionMulter).single('imagen');
+
+// sube imagen en el servidor
+exports.subirImagen = (req, res, next) => {
+    upload(req, res, function(error) {
+        if(error) {
+            if(error instanceof multer.MulterError) {
+                if(error.code === 'LIMIT_FILE_SIZE') {
+                    req.flash('error', 'El Archivo es muy grande')
+                } else {
+                    req.flash('error', error.message);
+                }
+            } else if(error.hasOwnProperty('message')) {
+                req.flash('error', error.message);
+            }
+            res.redirect('back');
+            return;
+        } else {
+            next();
+        }
+    })
+}
+
+
 exports.formNuevoGrupo = async (req, res) => {
     
-    const categorias = await Categorias.findAll();
+   const categorias = await Categorias.findAll();
+   
 
     res.render('nuevo-grupo', {
         nombrePagina : 'Crea un nuevo grupo',
@@ -18,7 +71,7 @@ exports.formNuevoGrupo = async (req, res) => {
 
 // Almacena los grupos en la BD
 exports.crearGrupo = async (req, res) => {
-    
+
     // sanitizar
     req.sanitizeBody('nombre');
     req.sanitizeBody('url');
