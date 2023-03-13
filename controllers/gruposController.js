@@ -104,3 +104,24 @@ exports.crearGrupo = async (req, res) => {
         res.redirect('/nuevo-grupo');
     }
 }
+
+exports.formEditarGrupo = async (req, res) => {
+    const grupo = await Grupos.findByPk(req.params.grupoId)
+    res.render('editar-grupo', {
+        nombrePagina : `Editar Grupo : ${grupo.nombre}`,
+        grupo
+    })
+
+    // const consultas = [];
+    // consultas.push( Grupos.findByPk(req.params.grupoId) );
+    // consultas.push( Categorias.findAll() );
+
+    // // Promise con await
+    // const [grupo, categorias] = await Promise.all(consultas);
+
+    // res.render('editar-grupo', {
+    //     nombrePagina : `Editar Grupo : ${grupo.nombre}`,
+    //     grupo,
+    //     categorias
+    // })
+}
