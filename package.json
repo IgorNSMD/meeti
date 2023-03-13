@@ -4,12 +4,15 @@
   "description": "Proyecto Meeti, con Node, PostgresSQL y EJS",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./index.js"
+    "dev": "nodemon ./index.js",  
+    "start": "concurrently \"npm run dev\" \"npm run watch\" ",
+    "watch": "webpack -w --mode development"
   },
   "author": "Igor San Martin",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
+    "concurrently": "^7.6.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
@@ -27,5 +30,12 @@
     "sequelize": "^6.29.0",
     "shortid": "^2.2.16",
     "uuidv4": "^6.2.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1"
   }
 }
