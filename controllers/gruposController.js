@@ -132,3 +132,30 @@ exports.formEditarGrupo = async (req, res) => {
     //     categorias
     // })
 }
+
+// guarda los cambios en la BD
+exports.editarGrupo = async (req, res, next) => {
+    const grupo = await Grupos.findOne({ where : { id : req.params.grupoId, usuarioId : req.user.id }});
+
+    // si no existe ese grupo o no es el dueño
+    if(!grupo) {
+        req.flash('error', 'Operación no válida');
+        res.redirect('/administracion');
+        return next();
+    }
+
+    // todo bien, leer los valores
+    const {nombre, descripcion, categoriaId, url } = req.body;
+
+    // asignar los valores
+    grupo.nombre = nombre;
+    grupo.descripcion = descripcion;
+    grupo.categoriaId = categoriaId;
+    grupo.url = url;
+
+    // guardamos en la base de datos
+    await grupo.save();
+    req.flash('exito', 'Cambios Almacenados Correctamente');
+    res.redirect('/administracion');
+
+}
