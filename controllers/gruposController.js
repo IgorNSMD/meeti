@@ -159,3 +159,13 @@ exports.editarGrupo = async (req, res, next) => {
     res.redirect('/administracion');
 
 }
+
+// Muestra el formulario para editar una imagen de grupo
+exports.formEditarImagen = async (req, res) => {
+    const grupo = await Grupos.findOne({ where : { id : req.params.grupoId, usuarioId : req.user.id }});
+
+    res.render('imagen-grupo', {
+        nombrePagina : `Editar Imagen Grupo : ${grupo.nombre}`,
+        grupo
+    })
+}
