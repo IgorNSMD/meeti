@@ -4,7 +4,7 @@
   "description": "Proyecto Meeti, con Node, PostgresSQL y EJS",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./index.js",  
+    "dev": "nodemon ./index.js",
     "start": "concurrently \"npm run dev\" \"npm run watch\" ",
     "watch": "webpack -w --mode development"
   },
@@ -21,6 +21,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
     "express-validator": "^5.3.1",
+    "leaflet-geosearch": "^3.7.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.21",
