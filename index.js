@@ -16,7 +16,7 @@ const db = require('./config/db');
 require('./models/Usuarios');
 require('./models/Categorias');
 require('./models/Grupos');
-
+require('./models/Meeti');
 db.sync().then(() => console.log('DB Conectada')).catch((error) => console.log(error));
 
 //Variables de desarrollo
