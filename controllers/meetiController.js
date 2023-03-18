@@ -47,3 +47,21 @@ exports.crearMeti = async (req, res) => {
     }
 
 }
+
+// sanitiza los meeti
+exports.sanitizarMeeti = (req, res, next) => {
+    req.sanitizeBody('titulo');
+    req.sanitizeBody('invitado');
+    req.sanitizeBody('cupo');
+    req.sanitizeBody('fecha');
+    req.sanitizeBody('hora');
+    req.sanitizeBody('direccion');
+    req.sanitizeBody('ciudad');
+    req.sanitizeBody('estado');
+    req.sanitizeBody('pais');
+    req.sanitizeBody('lat');
+    req.sanitizeBody('lng');
+    req.sanitizeBody('grupoId');
+
+    next();
+}
