@@ -83,3 +83,35 @@ exports.formIniciarSesion = (req, res) => {
         nombrePagina : 'Iniciar Sesión'
     })
 }
+
+// Muestra el formulario para editar el perfil
+exports.formEditarPerfil = async (req, res) => {
+    const usuario = await Usuarios.findByPk(req.user.id);
+
+    res.render('editar-perfil', {
+        nombrePagina : 'Editar Perfil',
+        usuario
+    })
+}
+
+// almacena en la Base de datos los cambios al perfil
+exports.editarPerfil = async (req, res) => {
+
+    const usuario = await Usuarios.findByPk(req.user.id);
+
+    req.sanitizeBody('nombre');
+    req.sanitizeBody('email');
+    // leer datos del form
+    const { nombre, descripcion, email} = req.body;
+
+    // asignar los valores
+    usuario.nombre = nombre;
+    usuario.descripcion = descripcion;
+    usuario.email = email;
+
+    // guardar en la BD
+    await usuario.save();
+    req.flash('exito', 'Cambios Guardados Correctamente');
+    res.redirect('/administracion');
+
+}
