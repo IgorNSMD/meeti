@@ -24,10 +24,15 @@ function buscarDireccion(e) {
     if(e.target.value.length > 8) {
 
         // si existe un pin anterior limpiarlo
-        markers.clearLayers();
+        if(marker){
+            map.removeLayer(marker)
+        }
 
-        // Utilizar el provider y Geocoder
+
+        // Utilizar el provider y GeoCoder
+        const geocodeService = L.esri.Geocoding.geocodeService();        
         const provider = new OpenStreetMapProvider();
+
         provider.search({query: e.target.value}).then((resultado) =>{
 
             // mostrar el mapa
@@ -49,8 +54,7 @@ function buscarDireccion(e) {
                 map.panTo(new L.LatLng(posicion.lat, posicion.lng) );
             })            
 
-            // asignar al contenedor markers
-            markers.addLayer(marker)            
+        
            
         })
 
