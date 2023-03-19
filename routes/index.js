@@ -118,11 +118,11 @@ module.exports = function() {
         usuariosController.formCambiarPassword
     );
 
-    // router.post('/cambiar-password',
-    //     authController.usuarioAutenticado,
-    //     usuariosController.cambiarPassword
-    // );
-    
+    router.post('/cambiar-password',
+        authController.usuarioAutenticado,
+        usuariosController.cambiarPassword
+    );
+
     return router;
 
 }
