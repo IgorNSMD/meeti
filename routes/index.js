@@ -20,6 +20,12 @@ module.exports = function() {
     router.get('/iniciar-sesion', usuariosController.formIniciarSesion);
     router.post('/iniciar-sesion', authController.autenticarUsuario);
 
+    // cerrar sesion
+    router.get('/cerrar-sesion',
+        authController.usuarioAutenticado,
+        authController.cerrarSesion
+    );
+
     /** Panel de administración */
     router.get('/administracion',  
         authController.usuarioAutenticado,
