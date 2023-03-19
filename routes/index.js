@@ -123,6 +123,17 @@ module.exports = function() {
         usuariosController.cambiarPassword
     );
 
+    // Imagenes de perfil
+    router.get('/imagen-perfil', 
+        authController.usuarioAutenticado,
+        usuariosController.formSubirImagenPerfil
+    );
+    router.post('/imagen-perfil', 
+        authController.usuarioAutenticado,
+        usuariosController.subirImagen,
+        usuariosController.guardarImagenPerfil
+    );
+        
     return router;
 
 }
