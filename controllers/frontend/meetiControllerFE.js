@@ -1,6 +1,10 @@
 const Meeti = require('../../models/Meeti');
 const Grupos = require('../../models/Grupos');
 const Usuarios = require('../../models/Usuarios');
+const moment = require('moment');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 
 exports.mostrarMeeti = async (req, res) => { 
     const meeti = await Meeti.findOne({ 
@@ -29,6 +33,6 @@ exports.mostrarMeeti = async (req, res) => {
         meeti, 
         // comentarios, 
         // cercanos,
-        // moment
+        moment
     })    
 }

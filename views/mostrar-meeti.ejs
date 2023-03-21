@@ -44,15 +44,21 @@
 <main class="contenido-evento">
     <div class="contenedor">
         <div class="informacion-evento">
-            <div class="descripcion">
 
+            <div class="descripcion">
+                <% if(meeti.grupo.imagen) {%>
+                    <img src="/uploads/grupos/<%= meeti.grupo.imagen %>">
+                <% } %>
+                <%- meeti.descripcion %>                
             </div> <!--.descripcion-->
+
             <div class="asistentes">
                 <div class="titulo">
-                    <h3>Asistentes</h3>
+                    <h3><%= meeti.interesados.length %> Asistentes</h3>
                     <a href="/asistentes/<%= meeti.slug %>">Ver Todos</a>
                 </div>
             </div><!--asistentes-->
+
             <div class="comentarios">
                 <h2>Comentarios</h2>
                 <div class="comentario">
@@ -74,10 +80,12 @@
         </div> <!--informacion-evento-->
         <aside class="informacion">
             <div class="fecha">
-                <p>30 de Agosto de 2023, 20:30 hrs</p>
+                <% moment.locale('es'); %>
+                <% const fecha = meeti.fecha + ' ' + meeti.hora; %>
+                <p><%= moment(fecha).format('LLLL') %> Horas</p>
             </div>
             <div class="ubicacion">
-                <p>Avenida Colorito</p>
+                <p> <%= meeti.direccion %>, <%= meeti.ciudad %>, <%= meeti.estado %>, <%= meeti.pais %> </p>
             </div>
         </aside>
     </div>
