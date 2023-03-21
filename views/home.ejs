@@ -25,8 +25,8 @@
     <h2>Próximos Meeti's</h2>
     <div class="grid columnas-md-3 ">
         <% if(meetis.length > 0 ) { %>
-            <% meetis.forEach(meeti => { %>
-                <%- include('partials/card-meeti.ejs') %> 
+            <% meetis.forEach(meeti => {%>
+                <%- include('partials/card-meeti.ejs', {meeti: meeti}) %>
             <% }) %>
         <% } %>
     </div>
