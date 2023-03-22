@@ -62,6 +62,9 @@
     integrity="sha512-zdT4Pc2tIrc6uoYly2Wp8jh6EPEWaveqqD3sT0lf5yei19BC1WulGuh5CesB0ldBKZieKGD7Qyf/G0jdSe016A=="
     crossorigin=""></script>
 
-    <script src="/dist/bundle.js"></script>
+    <% if(usuario.id) { %>
+        <script src="/dist/bundle.js"></script>
+    <% } %>
+    <script src="/js/meeti.js"></script>
 </body>
 </html>

@@ -44,13 +44,12 @@
 <main class="contenido-evento">
     <div class="contenedor">
         <div class="informacion-evento">
-
             <div class="descripcion">
-                <% if(meeti.grupo.imagen) {%>
+                <% if(meeti.grupo.imagen) { %>
                     <img src="/uploads/grupos/<%= meeti.grupo.imagen %>">
                 <% } %>
-                <%- meeti.descripcion %>                
-            </div> <!--.descripcion-->
+                <%- meeti.descripcion %>
+            </div><!--.descripcion-->
 
             <div class="asistentes">
                 <div class="titulo">
@@ -61,23 +60,28 @@
 
             <div class="comentarios">
                 <h2>Comentarios</h2>
-                <div class="comentario">
-                    <div class="imagen">
-
-                    </div>
-                    <div class="texto">
-
-                    </div>
-                </div>
+          
 
                 <!--formulario comentarios-->
-                    <form class="default-form comentarios">
-                        
+                <% if(usuario.id) { %>
+                    <form action="/meeti/<%= meeti.id %>" method="POST" class="default-form comentarios">
+                        <legend>Agrega un comentario</legend>
+                        <div class="campo">
+                            <label>Comentario</label>
+                            <textarea name="comentario"></textarea>
+                        </div>
+                        <div class="campo enviar">
+                            <input type="submit" value="Enviar" class="btn btn-rosa">
+                        </div>
                     </form>
-                 <!--/formulario-comentarios-->
+                <% } else {  %>
+                    <p>Inicia Sesión para Agregar un Comentario</p>
+                <% } %>
+                <!--/formulario-comentarios-->
 
-            </div> <!--.comentarios-->
-        </div> <!--informacion-evento-->
+            </div><!--.comentarios-->
+        </div><!--informacion-evento-->
+
         <aside class="informacion">
             <div class="fecha">
                 <% moment.locale('es'); %>
@@ -87,7 +91,13 @@
             <div class="ubicacion">
                 <p> <%= meeti.direccion %>, <%= meeti.ciudad %>, <%= meeti.estado %>, <%= meeti.pais %> </p>
             </div>
+
+            <!--Mapa de ubucacion-->
+            <input type="hidden" id="lat" value="<%= meeti.ubicacion.coordinates[0] %>">
+            <input type="hidden" id="lng" value="<%= meeti.ubicacion.coordinates[1] %>">
+            <input type="hidden" id="direccion" value="<%= meeti.direccion %>">
+            <div id="ubicacion-meeti"></div>            
         </aside>
     </div>
-</main>
 
+</main>
