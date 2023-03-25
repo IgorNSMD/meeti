@@ -29,6 +29,29 @@ exports.mostrarMeeti = async (req, res) => {
     if(!meeti) {
         res.redirect('/');
     }
+
+    // Consultar por meeti's cercanos
+    const ubicacion = Sequelize.literal(`ST_GeomFromText( 'POINT( ${meeti.ubicacion.coordinates[0]} ${meeti.ubicacion.coordinates[1]} )' )`);    
+    
+    // ST_DISTANCE_Sphere = Retorna una linea en metros
+    const distancia = Sequelize.fn('ST_DistanceSphere', Sequelize.col('ubicacion'), ubicacion);
+    
+    // encontrar meeti's cercanos
+    const cercanos = await Meeti.findAll({
+        order: distancia, // los ordena del mas cercano al lejano
+        where : Sequelize.where(distancia, { [Op.lte] : 1000 } ), // 2 mil metros o 2km
+        limit: 3, // maximo 3
+        offset: 1, 
+        include : [
+            { 
+                model: Grupos
+            }, 
+            {
+                model : Usuarios,
+                attributes : ['id', 'nombre', 'imagen']
+            }
+        ]
+    }) 
     
     // Consultar después de verificar que existe el meeti
     const comentarios = await Comentarios.findAll({
@@ -46,7 +69,7 @@ exports.mostrarMeeti = async (req, res) => {
         nombrePagina : meeti.titulo,
         meeti, 
         comentarios, 
-        // cercanos,
+        cercanos,
         moment
     })    
 }

@@ -122,7 +122,7 @@
                 <p> <%= meeti.direccion %>, <%= meeti.ciudad %>, <%= meeti.estado %>, <%= meeti.pais %> </p>
             </div>
 
-            <!--Mapa de ubucacion-->
+            <!--Mapa de ubicacion-->
             <input type="hidden" id="lat" value="<%= meeti.ubicacion.coordinates[0] %>">
             <input type="hidden" id="lng" value="<%= meeti.ubicacion.coordinates[1] %>">
             <input type="hidden" id="direccion" value="<%= meeti.direccion %>">
@@ -131,3 +131,14 @@
     </div>
 
 </main>
+
+<h2>Otros Meeti's Cercanos</h2>
+<div class="contenedor cercanos">
+    <% if(cercanos.length > 0 ) { %>
+        <% cercanos.forEach(meeti => { %>
+            <%- include('partials/card-meeti.ejs') %>
+        <% }) %>
+    <% } else { %>
+        <p>No hay Meeti's Cercanos</p>
+    <% } %>
+</div>

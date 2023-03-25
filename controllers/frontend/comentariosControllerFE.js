@@ -21,7 +21,7 @@ exports.agregarComentario = async (req, res, next) => {
 exports.eliminarComentario = async (req, res, next ) => {
 
     // Tomar el ID del comentario
-    const { comentarioId } = req.body;
+    const { comentarioId } = req.body;
 
     // Consultar el Comentario
     const comentario = await Comentarios.findOne({ where : { id : comentarioId }});
